@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -19,7 +15,15 @@ and open the template in the editor.
 
     </head>
     <body>
+       <?php 
        
+       $sql = "SELECT * FROM cliente ORDER BY nome";
+
+       include './conexao_bd.php';
+
+       $dados = retornarDados($sql);
+       ?>
+
         <form name="formListar" action="" method="post">
             <div class="container-fluid">
                 <div class="row">
@@ -37,16 +41,19 @@ and open the template in the editor.
                                     <td>Endereço</td>
                                     <td>Telefone</td>
                                 </tr>
-                                
-                               
+
+                                <?php 
+                                while ($linha = mysqli_fetch_assoc($dados)){
+                                ?>
                                 
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    
+                                    <td><?php echo $linha["cpf"]?></td>
+                                    <td><?php echo $linha["nome"]?></td>
+                                    <td><?php echo $linha["endereco"]?></td>
+                                    <td><?php echo $linha["telefone"]?></td>
                                 </tr>
+
+                                <?php } ?>
                                 
                             
                             </table>

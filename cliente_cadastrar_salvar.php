@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -19,7 +15,26 @@ and open the template in the editor.
 
     </head>
     <body>
-     
+        <?php 
+        $cpf = $_POST["txtCPF"];
+        $nome = $_POST["txtNome"];
+        $endereco = $_POST["txtEndereco"];
+        $telefone = $_POST["txtTelefone"];
+
+        include './conexao_bd.php';
+
+        $sql = "INSERT INTO cliente (cpf,nome,endereco,telefone)"
+                . " VALUES ('$cpf', '$nome', '$endereco', '$telefone' ) ";
+
+        if (executarComando($sql)){
+            echo "<h1>CLiente inserido</h1>";
+        }
+        else {
+            echo "<h1>Cliente não cadastrado";
+        }
+        
+        
+        ?>
        
     </body>
 </html>

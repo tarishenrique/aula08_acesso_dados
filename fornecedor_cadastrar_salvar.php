@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -18,6 +14,25 @@ and open the template in the editor.
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     </head>
     <body>
+        <?php
+            $cnpj = $_POST["txtCNPJ"];
+            $nome = $_POST["txtNome"];
+            $endereco = $_POST["txtEndereco"];
+            $telefone = $_POST["txtTelefone"];
+            $email = $_POST["txtEmail"];
+
+            $sql = "INSERT INTO fornecedor
+                    (cnpj, nome, endereco, telefone, email)
+                    Values ('$cnpj','$nome','$endereco','$telefone','$email')";
+
+            include './conexao_bd.php';
+
+            if (executarComando($sql)){
+                echo "<h1> Fornecedor cadastrado com sucesso </h1>";
+            } else {
+                echo "<h1> Não cadastrado! </h1>";
+            }
+        ?>
         
     </body>
 </html>

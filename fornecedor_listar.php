@@ -19,11 +19,17 @@ and open the template in the editor.
 
     </head>
     <body>
+        <?php
+        include './conexao_bd.php';
+        $sql = "SELECT * FROM fornecedor";
+
+        $resultado = retornarDados($sql);
+        ?>
          
         <form name="formListar" action="" method="post">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
 
 
                         <h2>Fornecedor - Listar</h2>
@@ -38,15 +44,21 @@ and open the template in the editor.
                                     <td>E-mail</td>
                                 </tr>
 
+                                <?php
+                                while ($linha = mysqli_fetch_assoc($resultado)) {
+                                ?>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><</td>
-                                    <td></td>                              
+                                    <td><?php echo $linha["cnpj"]; ?></td>
+                                    <td><?php echo $linha["nome"]; ?></td>
+                                    <td><?php echo $linha["endereco"]; ?></td>
+                                    <td><?php echo $linha["telefone"]; ?></td>
+                                    <td><?php echo $linha["email"]; ?></td>
                                 </tr>
+
+                                <?php } ?>
                             </table>
                         </div>
+                        <input type="button" value="Início" class="btn btn-info" name="btInicio" onclick="location.href='index.php';">
                     </div>
                 </div>
             </div>

@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -18,6 +14,17 @@ and open the template in the editor.
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     </head>
     <body>
+        <?php
+        include './conexao_bd.php';
+        $cnpj = $_POST["txtCNPJ"];
+
+        $sql = "SELECT * FROM fornecedor 
+                WHERE cnpj='$cnpj'";
+        
+        $resultado = retornarDados($sql);
+
+        $linha = mysqli_fetch_assoc($resultado);
+        ?>
 
         <form name="formEditar" action="fornecedor_editar_salvar.php?cnpj=" method="post">
             <div class="container-fluid">
@@ -28,23 +35,23 @@ and open the template in the editor.
 
                         <div class="form-group">
                             <label>Nome</label>
-                            <input type="text" class="form-control"  required="" placeholder="Nome completo" name="txtNome">
+                            <input value="<?php echo $linha["nome"] ?>" type="text" class="form-control"  required="" placeholder="Nome completo" name="txtNome">
                         </div>
 
                         <div class="form-group">
                             <label>Endereço</label>
-                            <input type="text" class="form-control"  placeholder="Endereço" name="txtEndereco">
+                            <input value="<?php echo $linha["endereco"] ?>" type="text" class="form-control"  placeholder="Endereço" name="txtEndereco">
                         </div>
 
 
                         <div class="form-group">
                             <label>Telefone</label>
-                            <input type="text" class="form-control"   placeholder="Telefone" name="txtTelefone">
+                            <input value="<?php echo $linha["telefone"] ?>" type="text" class="form-control"   placeholder="Telefone" name="txtTelefone">
                         </div>
 
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" class="form-control"   placeholder="Email" name="txtEmail">
+                            <input value="<?php echo $linha["email"] ?>" type="email" class="form-control"   placeholder="Email" name="txtEmail">
                         </div>
 
 
@@ -52,8 +59,10 @@ and open the template in the editor.
 
                             <input type="submit" value="Editar" class="btn btn-info" name="btEditar">
                             <a href="fornecedor_remover.php?cnpj=">
-                                <input type="button" value="Remover" class="btn btn-info" name="btRemover">
+                            <input type="button" value="Remover" class="btn btn-info" name="btRemover">
                             </a>
+                            <input type="button" value="Início" class="btn btn-info" name="btInicio" onclick="location.href='index.php';">
+                            
                         </div>
 
                     </div>

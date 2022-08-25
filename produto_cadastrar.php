@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -18,6 +14,14 @@ and open the template in the editor.
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     </head>
     <body>
+        <?php
+        include './conexao_bd.php';
+        
+        $sql = "SELECT cnpj,nome FROM fornecedor 
+               ORDER BY nome";
+        
+        $resultado = retornarDados($sql);
+        ?>
 
        
         <form name="formCadastrar" action="produto_cadastrar_salvar.php" method="post">
@@ -33,9 +37,16 @@ and open the template in the editor.
                         <div class="form-group">
                             <label>Fornecedor</label>
                             <select class="form-control" name="selectFornecedor">
+                                <?php
+                                
+                                while ($linha = mysqli_fetch_assoc($resultado)) {
+                                
+                                ?>
                                
-                                <option></option>
-                              
+                                <option value="<?php echo $linha["cnpj"];  ?>" >
+                                    <?php echo $linha["cnpj"] ." - ". $linha["nome"] ; ?></option>
+                                
+                                <?php } ?>
                             </select>
 
                         </div>
@@ -43,6 +54,7 @@ and open the template in the editor.
                         <div class="form-group">
 
                             <input type="submit" value="Cadastrar" class="btn btn-info" name="btCadastrar"  >
+                            <input type="button" value="Início" class="btn btn-info" name="btInicio" onclick="location.href='index.php';">
                         </div>
 
                     </div>

@@ -1,66 +1,73 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Cliente - Editar</title>
 
-        <!-- REFERENCIAS PARA O BOOTSTRAP FUNCIONAR --> 
+<head>
+    <meta charset="UTF-8">
+    <title>Cliente - Editar</title>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <script src="js/bootstrap.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- REFERENCIAS PARA O BOOTSTRAP FUNCIONAR -->
 
-    </head>
-    <body>
-        <?php
-        include './conexao_bd.php';
-        $cpf = $_POST["txtCPF"];
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-        $sql = "SELECT * FROM cliente 
+</head>
+
+<body>
+    <?php
+    include './conexao_bd.php';
+    $cpf = $_POST["txtCPF"];
+
+    $sql = "SELECT * FROM cliente 
                 WHERE cpf='$cpf'";
-        
-        $resultado = retornarDados($sql);
 
-        $linha = mysqli_fetch_assoc($resultado);
-        ?>
-       
+    $resultado = retornarDados($sql);
 
-        <form name="formEditar" action="cliente_editar_salvar?cpf=.php" method="post">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h2>Cliente - Editar</h2>
-
-                        <div class="form-group">
-                            <label>Nome</label>
-                            <input value="<?php echo $linha["nome"] ?>" type="text" class="form-control"  required="" placeholder="Nome completo" name="txtNome">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Endereço</label>
-                            <input value="<?php echo $linha["endereco"] ?>" type="text" class="form-control"  placeholder="Endereço"  name="txtEndereco">
-                        </div>
+    $linha = mysqli_fetch_assoc($resultado);
+    ?>
 
 
-                        <div class="form-group">
-                            <label>Telefone</label>
-                            <input value="<?php echo $linha["telefone"] ?>" type="text" class="form-control"  placeholder="Telefone" name="txtTelefone">
-                        </div>
+    <form name="formEditar" method="post">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Cliente - Editar</h2>
 
-                        <div class="form-group">
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input value="<?php echo $linha["nome"] ?>" type="text" class="form-control" required=""
+                            placeholder="Nome completo" name="txtNome">
+                    </div>
 
-                            <input type="submit" value="Editar" class="btn btn-info" name="btEditar">
-                            <a href="cliente_remover.php?cpf=">
-                            <input type="button" value="Remover" class="btn btn-info" name="btRemover">
-                            </a>
-                        </div>
+                    <div class="form-group">
+                        <label>Endereço</label>
+                        <input value="<?php echo $linha["endereco"] ?>" type="text" class="form-control"
+                            placeholder="Endereço" name="txtEndereco">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Telefone</label>
+                        <input value="<?php echo $linha["telefone"] ?>" type="text" class="form-control"
+                            placeholder="Telefone" name="txtTelefone">
+                    </div>
+
+                    <div class="form-group">
+
+                        <input formaction="cliente_editar_salvar.php?cpf=<?php echo $cpf ?>" type="submit"
+                            value="Editar" class="btn btn-info" name="btEditar">
+                        <input formaction="cliente_remover.php?cpf=<?php echo $cpf ?>" type="submit" value="Remover"
+                            class="btn btn-info" name="btRemover">
 
                     </div>
+
                 </div>
             </div>
-        </form>
-    </body>
+        </div>
+    </form>
+</body>
+
 </html>
